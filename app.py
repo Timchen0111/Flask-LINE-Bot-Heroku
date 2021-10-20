@@ -43,7 +43,7 @@ def text_reply(content, event):
     line_bot_api.reply_message(event.reply_token, reply)
 
 #資料庫函數
-def writeInfo(thing,price):
+def writeInfo(thing,price,cursor):
     try:
         cursor.execute('CREATE TABLE table1(id serial PRIMARY KEY,name VARCHAR(50),quantity INTEGER);')
     except:
@@ -56,14 +56,13 @@ def writeInfo(thing,price):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     get_message = event.message.text
-
     if get_message == "壞貓貓":
         badcat = "你才壞貓貓"
         text_reply(badcat,event)
     elif get_message == "壞貓貓記帳":
         thing = 'apple'
         price = '200'
-        writeInfo(thing,price)
+        writeInfo(thing,price,cursor)
     else:
         confuse = "我聽不懂你在說什麼"
         text_reply(confuse,event)
