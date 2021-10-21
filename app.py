@@ -60,11 +60,15 @@ def handle_message(event):
         thing = 'apple'
         price = '200'
         #writeInfo(thing,price)
+    elif get_message == "壞貓貓查詢":
+        cursor.execute("SELECT * FROM table1")
     else:
         confuse = "我聽不懂你在說什麼"
         text_reply(confuse,event)
 
-
+conn.commit()
+cursor.close()
+conn.close()
 
         
         
