@@ -45,6 +45,7 @@ def text_reply(content, event):
 #資料庫函數
 def writeInfo(thing,price):    
     cursor.execute("INSERT INTO table1(thing,price)VALUES(%s,%s);",(thing,price))
+    return True
     
 
 
@@ -58,7 +59,7 @@ def handle_message(event):
     elif get_message == "壞貓貓記帳":
         thing = 'apple'
         price = '200'
-        writeInfo(thing,price)
+        #writeInfo(thing,price)
     else:
         confuse = "我聽不懂你在說什麼"
         text_reply(confuse,event)
