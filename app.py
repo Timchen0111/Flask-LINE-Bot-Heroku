@@ -58,10 +58,14 @@ def handle_message(event):
     elif get_message == "壞貓貓記帳":
         thing = 'apple'
         price = '200'
-        writeInfo(thing,price,cursor)
+        writeInfo(thing,price)
     else:
         confuse = "我聽不懂你在說什麼"
         text_reply(confuse,event)
+
+
+
+        
         
 
 #環境變數DJANGO_SETTINGS_MODULE
