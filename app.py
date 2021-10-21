@@ -46,14 +46,7 @@ def handle_message(event):
 
     if get_message == "壞貓貓":
         line_bot_api.reply_message(event.reply_token, badCat)
-    elif get_message == "上架":
-        updateCommodity()
-
-def updateCommodity():
-    update = {}
-    reply01 = TextSendMessage(text="請輸入商品名稱")
-    line_bot_api.reply_message(event.reply_token, reply01)
-    
+   
 
 
 
