@@ -1,12 +1,14 @@
 import os
 from datetime import datetime
 from typing import Text
-import psycopg2
+#import psycopg2
 from flask import Flask, abort, request
 
 #連接資料庫
-conn = psycopg2.connect(database = 'dc12u005giu04i',host = 'ec2-44-195-240-222.compute-1.amazonaws.com',port = '5432',user = 'ktptiqlmwmjwha',password = '35704ce12d9c08c10280138457c662c741af5dc5391f0a505a61ea41ec7bd0a0')
+#conn = psycopg2.connect(database = 'dc12u005giu04i',host = 'ec2-44-195-240-222.compute-1.amazonaws.com',port = '5432',user = 'ktptiqlmwmjwha',password = '35704ce12d9c08c10280138457c662c741af5dc5391f0a505a61ea41ec7bd0a0')
 #print('Connectecd')
+DATABASE_URL = os.environ['postgres://ktptiqlmwmjwha:35704ce12d9c08c10280138457c662c741af5dc5391f0a505a61ea41ec7bd0a0@ec2-44-195-240-222.compute-1.amazonaws.com:5432/dc12u005giu04i']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cursor = conn.cursor()
 
 #連linebot
@@ -43,9 +45,9 @@ def text_reply(content, event):
     line_bot_api.reply_message(event.reply_token, reply)
 
 #資料庫函數
-def writeInfo(thing,price):    
-    cursor.execute("INSERT INTO table1(thing,price)VALUES(%s,%s);",(thing,price))
-    return True
+#def writeInfo(thing,price):    
+ #   cursor.execute("INSERT INTO table1(thing,price)VALUES(%s,%s);",(thing,price))
+  #  return True
     
 
 
@@ -56,10 +58,6 @@ def handle_message(event):
     if get_message == "壞貓貓":
         badcat = "你才壞貓貓"
         text_reply(badcat,event)
-    elif get_message == "壞貓貓記帳":
-        thing = 'apple'
-        price = '200'
-        #writeInfo(thing,price)
     elif get_message == "壞貓貓查詢":
         cursor.execute("SELECT * FROM table1")
     else:
