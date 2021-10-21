@@ -43,9 +43,9 @@ def text_reply(content, event):
     line_bot_api.reply_message(event.reply_token, reply)
 
 #資料庫函數
-def writeInfo(thing,price):    
-    cursor.execute("INSERT INTO table1(thing,price)VALUES(%s,%s);",(thing,price))
-    return True
+#def writeInfo(thing,price):    
+ #   cursor.execute("INSERT INTO table1(thing,price)VALUES(%s,%s);",(thing,price))
+  #  return True
     
 
 
