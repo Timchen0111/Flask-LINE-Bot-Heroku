@@ -5,9 +5,9 @@ import psycopg2
 from flask import Flask, abort, request
 
 #連接資料庫
-conn = psycopg2.connect(database = 'dc12u005giu04i',host = 'ec2-44-195-240-222.compute-1.amazonaws.com',port = '5432',user = 'ktptiqlmwmjwha',password = '35704ce12d9c08c10280138457c662c741af5dc5391f0a505a61ea41ec7bd0a0')
+#conn = psycopg2.connect(database = 'dc12u005giu04i',host = 'ec2-44-195-240-222.compute-1.amazonaws.com',port = '5432',user = 'ktptiqlmwmjwha',password = '35704ce12d9c08c10280138457c662c741af5dc5391f0a505a61ea41ec7bd0a0')
 #print('Connectecd')
-cursor = conn.cursor()
+#cursor = conn.cursor()
 
 #連linebot
 # https://github.com/line/line-bot-sdk-python
