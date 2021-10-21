@@ -43,12 +43,8 @@ def text_reply(content, event):
     line_bot_api.reply_message(event.reply_token, reply)
 
 #資料庫函數
-def writeInfo(thing,price,cursor):
-    try:
-        cursor.execute('CREATE TABLE table1(id serial PRIMARY KEY,name VARCHAR(50),quantity INTEGER);')
-    except:
-        pass
-    cursor.execute("INSERT INTO inventory(name,quantity)VALUES(%s,%s);",(thing,price))
+def writeInfo(thing,price):    
+    cursor.execute("INSERT INTO table1(thing,price)VALUES(%s,%s);",(thing,price))
     
 
 
