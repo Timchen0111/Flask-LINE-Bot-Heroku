@@ -98,8 +98,9 @@ def text_reply(content, event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    id = event.source.user_id  # 獲取使用者ID
+    #id = event.source.user_id  # 獲取使用者ID
     #print(id)
+    id = '886'
     get_message = event.message.text.rstrip().strip()
     if get_message == "下單":
         errortext = "這邊還沒開發好qq"
