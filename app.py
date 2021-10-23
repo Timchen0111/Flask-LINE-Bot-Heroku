@@ -41,8 +41,8 @@ def callback():
 def updateDictionary(text):
     lst = text.split(";")
     myDict = {}
-    myDict["memberName"] = lst[0]
-    myDict["phone"] = lst[1]
+    myDict["memberName"] = lst[1]
+    myDict["phone"] = lst[2]
     myDict["name"] = lst[3] 
     myDict["description"] = lst[4]
     myDict["link"] = lst[5]
