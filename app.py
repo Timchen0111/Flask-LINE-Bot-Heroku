@@ -101,11 +101,10 @@ def handle_message(event):
     id = event.source.user_id  # 獲取使用者ID
     #print(id)
     get_message = event.message.text.rstrip().strip()
-    if get_message == "壞貓貓":
-        badcat = "你才壞貓貓"
-        text_reply(badcat,event)
+    if get_message == "下單":
+        errortext = "這邊還沒開發好qq"
+        text_reply(errortext,event)
     elif get_message[:2] == "上架":
-        id = input('id:')
         d = updateDictionary(get_message)
         #print(type(d))
         updateMember(id,d)
