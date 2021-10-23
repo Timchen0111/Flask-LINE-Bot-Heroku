@@ -140,12 +140,14 @@ def orderCartProduct(id):
     query = cursor.fetchall()
     memberNum = query[0][0]
     #找到要調的資料
-    cursor.execute('SELECT \"productNumber\",\"productName\" From "orderCart" WHERE "memberNumber" = \'%s\''%memberNum)
-    query = cursor.fetchall()
-    lst = []
-    lst2 = []
-    for i in query:
-        lst.append(i)
+    lst_cart = checkCart(id)
+    #print(lst_cart) 
+    lst_productNumber = []
+    lst_productName = []
+    for i in lst_cart:
+        lst_productNumber.append(i[3])
+        lst_productName.append(i[5])
+    #print(lst_productNumber,lst_productName)
     #print(lst)
     #製造流水號
     cursor.execute('SELECT MAX("orderNumber") FROM "orderInfo"')
@@ -153,7 +155,7 @@ def orderCartProduct(id):
     maxnum = query[0][0]
     if maxnum == None:
         maxnum = 0
-    orderNum = maxnum+2
+    orderNum = maxnum+1
     #print(orderNum)
     #時間
     nowtime = time.ctime()
@@ -161,25 +163,39 @@ def orderCartProduct(id):
     orderDate = nowtime.split(' ')[1]+'-'+nowtime.split(' ')[2]+'-'+nowtime.split(' ')[4]
 
     #數量
-    cursor.execute('SELECT SUM("productQuantity") FROM "orderCart" WHERE "memberNumber" = \'%s\''%memberNum)
-    query = cursor.fetchall()
-    productQuantity = query[0][0]
+    productQuantity = 0
+    for i in lst_cart:
+        productQuantity += i[4]
     #找賣家是誰
-    for i in range(len(lst)):
-        proNum = lst[i][0]
+    lst = []
+    lst2 = []
+    for i in lst_cart:
+        proNum = i[3]
         cursor.execute('SELECT "memberNumber" FROM "product" WHERE "productNumber" = \'%s\''%proNum)
         query = cursor.fetchall()
         #print(query[0][0])
         lst2.append(query[0][0])
+        print(lst2)
     #一一丟資料
-    printlist = []
-    for i in range(len(lst)):        
-        cursor.execute('INSERT INTO "orderInfo" VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);',(orderNum,orderTime,productQuantity,None,True,orderDate,lst2[i],lst[i][0],memberNum,lst[i][1]))
-        printlist.append([orderNum,orderTime,productQuantity,orderDate,lst2[i],lst[i][0],memberNum,lst[i][1]])
+    cursor.execute('SELECT "memberNumber" FROM member WHERE "lineID" = \'%s\''%id)
+    query = cursor.fetchall()
+    memberNum = int(query[0][0])
+    for i in range(len(lst_cart)):             
+        cursor.execute('INSERT INTO "orderInfo" VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);',(orderNum,orderTime,productQuantity,None,True,orderDate,lst2[i],lst_productNumber[i],memberNum,lst_productName[i]))
+        print('happy')
         orderNum += 1     
     #清空購物車
-    cursor.execute('UPDATE "orderCart" SET "productState" = false WHERE "memberNumber" = %s'%int(memberNum))
-    return printlist
+    for i in lst_productNumber:
+        cursor.execute('UPDATE "orderCart" SET "productState" = false WHERE "productNumber" = %s'%int(i))
+    conn.commit()
+
+def get_order_cart_information():
+    productNameList = []
+    productQuantityList = []
+    totalMoneyList = []
+    index = []
+    
+    return productNameList, productQuantityList, totalMoneyList, index
 
 
 
