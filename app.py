@@ -132,7 +132,6 @@ def checkCart(id):
             lst.append(i)
     return lst
 
-
 #下單
 def orderCartProduct(id):
     #從ID找用戶代碼
@@ -172,11 +171,14 @@ def orderCartProduct(id):
         #print(query[0][0])
         lst2.append(query[0][0])
     #一一丟資料
+    printlist = []
     for i in range(len(lst)):        
         cursor.execute('INSERT INTO "orderInfo" VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);',(orderNum,orderTime,productQuantity,None,True,orderDate,lst2[i],lst[i][0],memberNum,lst[i][1]))
+        printlist.append([orderNum,orderTime,productQuantity,orderDate,lst2[i],lst[i][0],memberNum,lst[i][1]])
         orderNum += 1     
     #清空購物車
     cursor.execute('UPDATE "orderCart" SET "productState" = false WHERE "memberNumber" = %s'%int(memberNum))
+    return printlist
 
 
 
@@ -205,15 +207,23 @@ def handle_message(event):
             finish_ = "已放入購物車！\n若要查看購物車請輸入\"查看購物車\"，若要下訂單請輸入\"下單\""
             text_reply(finish_,event)
     elif get_message == "查看購物車":
+        checkCart(id)
         lst = checkCart(id)
+        print(lst)
         string = ''
         for i in lst:
-            string += i
-            string += ','
+            for j in i:
+                string += str(j)
+                string += ','
+            string += "\n"
         text_reply(string,event)
     elif get_message == "下單":
-        orderCartProduct(id)
-        buy = "已完成下單！"
+        orderlist = orderCartProduct(id)
+        s = ''
+        for i in orderlist:
+            for j in i:
+                s += str(j)  
+        buy = "已完成下單！您的訂單內容為："+s
         text_reply(buy,event)
     elif get_message[:2] == "上架":
         d = updateDictionary(get_message)
