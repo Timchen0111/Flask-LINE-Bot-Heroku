@@ -108,7 +108,7 @@ def handle_message(event):
         text_reply(errortext,event)
     elif get_message[:2] == "上架":
         d = updateDictionary(get_message)
-        text_reply(work,event)
+        #text_reply(work,event)
         #print(type(d))
         updateMember(id,d)
         text_reply(work,event)
