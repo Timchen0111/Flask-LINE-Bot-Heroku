@@ -179,14 +179,22 @@ def orderCartProduct(id):
     #一一丟資料
     cursor.execute('SELECT "memberNumber" FROM member WHERE "lineID" = \'%s\''%id)
     query = cursor.fetchall()
+    lst3 = []
     memberNum = int(query[0][0])
     for i in range(len(lst_cart)):             
         cursor.execute('INSERT INTO "orderInfo" VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);',(orderNum,orderTime,productQuantity,None,True,orderDate,lst2[i],lst_productNumber[i],memberNum,lst_productName[i]))
         print('happy')
         orderNum += 1     
     #清空購物車
+        lst3.append([orderNum,orderTime,productQuantity,orderDate,lst2[i],lst_productNumber[i],memberNum,lst_productName[i])])
     for i in lst_productNumber:
         cursor.execute('UPDATE "orderCart" SET "productState" = false WHERE "productNumber" = %s'%int(i))
+    s = ""
+    for i in lst3:
+        for j in i:
+            s += str(j)
+            s += ','
+        s += "\n"
     conn.commit()
 
 def get_order_cart_information():
