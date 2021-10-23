@@ -115,6 +115,7 @@ def orderCart(proNum,id,quantity):
     query = cursor.fetchall()
     if query[0][0] == 0:
         cursor.execute('Update product SET "productState" = false WHERE "productNumber" = %d'%proNum)
+    conn.commit()
    
 
 #查看購物車
