@@ -55,7 +55,7 @@ def text_reply(content, event):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     id = event.source.user_id  # 獲取使用者ID
-    print(id)
+    #print(id)
     get_message = event.message.text.rstrip().strip()
     if get_message == "壞貓貓":
         badcat = "你才壞貓貓"
