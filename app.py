@@ -39,7 +39,7 @@ def callback():
 
 #把使用者上架傳送資料製造成Dictionary
 def updateDictionary(text):
-    lst = text.split("\n")
+    lst = text.split(";")
     myDict = {}
     myDict["memberName"] = lst[0]
     myDict["phone"] = lst[1]
