@@ -39,7 +39,7 @@ def callback():
 
 #把使用者上架傳送資料製造成Dictionary
 def updateDictionary(text):
-    lst = text.split("\n")
+    lst = text.split(";")
     myDict = {}
     myDict["memberName"] = lst[0]
     myDict["phone"] = lst[1]
@@ -98,7 +98,7 @@ def text_reply(content, event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    id = event.source.user_id  # 獲取使用者ID
+    #id = event.source.user_id  # 獲取使用者ID
     #print(id)
     get_message = event.message.text.rstrip().strip()
     if get_message == "下單":
@@ -106,9 +106,10 @@ def handle_message(event):
         text_reply(errortext,event)
     elif get_message[:2] == "上架":
         d = updateDictionary(get_message)
-        work = "努力中"
+        work = d["name"]
         text_reply(work,event)
         #print(type(d))
+        id = 886
         updateMember(id,d)
         text_reply(work,event)
         updateProduct(id,d)
