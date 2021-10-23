@@ -107,7 +107,6 @@ def handle_message(event):
         errortext = "這邊還沒開發好qq"
         text_reply(errortext,event)
     elif get_message[:2] == "上架":
-        text_reply(work,event)
         d = updateDictionary(get_message)
         text_reply(work,event)
         #print(type(d))
