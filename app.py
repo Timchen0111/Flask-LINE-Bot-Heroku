@@ -101,7 +101,6 @@ def handle_message(event):
     work = "努力中"
     #id = event.source.user_id  # 獲取使用者ID
     #print(id)
-    id = '886'
     get_message = event.message.text.rstrip().strip()
     if get_message == "下單":
         errortext = "這邊還沒開發好qq"
@@ -110,6 +109,7 @@ def handle_message(event):
         d = updateDictionary(get_message)
         #text_reply(work,event)
         #print(type(d))
+        id = 886
         updateMember(id,d)
         text_reply(work,event)
         updateProduct(id,d)
