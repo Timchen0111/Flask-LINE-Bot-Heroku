@@ -109,7 +109,7 @@ def handle_message(event):
         work = d["name"]
         #text_reply(work,event)
         updateMember(id,d)
-        text_reply(work,event)
+        #text_reply(work,event)
         updateProduct(id,d)
         finish = "上架完成！"
         text_reply(finish,event)
