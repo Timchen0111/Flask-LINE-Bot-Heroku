@@ -98,7 +98,7 @@ def text_reply(content, event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    #id = event.source.user_id  # 獲取使用者ID
+    id = event.source.user_id  # 獲取使用者ID
     #print(id)
     get_message = event.message.text.rstrip().strip()
     if get_message == "下單":
@@ -108,19 +108,20 @@ def handle_message(event):
         d = updateDictionary(get_message)
         work = d["name"]
         #text_reply(work,event)
-        id = 886
         updateMember(id,d)
         text_reply(work,event)
         updateProduct(id,d)
         finish = "上架完成！"
-        text_reply(finish,event)        
+        text_reply(finish,event)
+        cursor.close()
+        conn.close()
     else:
         confuse = "我聽不懂你在說什麼"
         text_reply(confuse,event)
 
 conn.commit()
-cursor.close()
-conn.close()
+#cursor.close()
+#conn.close()
 
         
         
