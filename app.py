@@ -113,8 +113,8 @@ def handle_message(event):
         updateProduct(id,d)
         finish = "上架完成！"
         text_reply(finish,event)
-        cursor.close()
-        conn.close()
+        #cursor.close()
+        #conn.close()
     else:
         confuse = "我聽不懂你在說什麼"
         text_reply(confuse,event)
