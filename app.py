@@ -98,6 +98,7 @@ def text_reply(content, event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    work = "努力中"
     #id = event.source.user_id  # 獲取使用者ID
     #print(id)
     id = '886'
@@ -106,8 +107,8 @@ def handle_message(event):
         errortext = "這邊還沒開發好qq"
         text_reply(errortext,event)
     elif get_message[:2] == "上架":
+        text_reply(work,event)
         d = updateDictionary(get_message)
-        work = "努力中"
         text_reply(work,event)
         #print(type(d))
         updateMember(id,d)
