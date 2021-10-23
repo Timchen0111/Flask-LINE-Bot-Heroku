@@ -115,6 +115,7 @@ def orderCart(proNum,id,quantity):
     query = cursor.fetchall()
     if query[0][0] == 0:
         cursor.execute('Update product SET "productState" = false WHERE "productNumber" = %d'%proNum)
+    conn.commit()
    
 
 #查看購物車
@@ -222,7 +223,9 @@ def handle_message(event):
         s = ''
         for i in orderlist:
             for j in i:
-                s += str(j)  
+                s += str(j)
+                s += ","
+            s += "\n" 
         buy = "已完成下單！您的訂單內容為："+s
         text_reply(buy,event)
     elif get_message[:2] == "上架":
